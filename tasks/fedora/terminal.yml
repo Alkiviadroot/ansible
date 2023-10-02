@@ -1,0 +1,7 @@
+- name: Installing alacritty
+  dnf:
+    name: alacritty
+  tags:
+    - terminal
+
+- import_tasks: ../universal/terminal.yml

@@ -1,0 +1,22 @@
+- hosts: localhost
+  vars:
+    source_key: "../../.ssh/id_ed25519"
+    dest_key: "{{ lookup('env', 'HOME') }}/.ssh/id_ed25519"
+  become: true
+  pre_tasks:
+    - name: Update cache
+      dnf:
+        update_cache: true
+      tags:
+        - always
+    - name: Installing stow
+      dnf:
+        name: stow
+      tags:
+        - always
+
+  tasks:
+    - import_tasks: ../universal/ssh.yml
+    - import_tasks: ../universal/git.yml
+    - import_tasks: terminal.yml
+    - import_tasks: zsh.yml

@@ -1,0 +1,24 @@
+- name: Cloning colorscript
+  ansible.builtin.git:
+    repo: "https://gitlab.com/dwt1/shell-color-scripts.git"
+    dest: "{{ lookup('ansible.builtin.env', 'HOME') }}/shell-color-scripts"
+    recursive: yes
+    update: yes
+    version: master
+  tags:
+    - colorscript
+
+- name: Compiling colorscript
+  shell: cd {{ lookup('ansible.builtin.env', 'HOME') }}/shell-color-scripts && sudo make install
+  tags:
+    - colorscript
+
+- name: Blacklisting hex
+  shell: colorscript -b hex
+  tags:
+    - colorscript
+
+- name: Blacklisting spectrum
+  shell: colorscript -b spectrum
+  tags:
+    - colorscript

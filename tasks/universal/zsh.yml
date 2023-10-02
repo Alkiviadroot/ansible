@@ -1,0 +1,32 @@
+- import_tasks: dotfiles.yml
+  tags:
+    - zsh
+
+- name: Setting zsh default shell
+  shell: command -v zsh | sudo tee -a /etc/shells
+  tags:
+    - zsh
+
+- name: Setting zsh as default shell
+  shell: chsh -s $(which zsh) {{ lookup('ansible.builtin.env', 'USER') }}
+  tags:
+    - zsh
+
+- name: Customizing zsh
+  shell: cd {{ lookup('ansible.builtin.env', 'HOME') }}/.dotfiles && stow zsh
+  tags:
+    - zsh
+
+- name: Installing Starship promt
+  shell: sh -c "$(curl -sS https://starship.rs/install.sh )" -y -f
+  tags:
+    - zsh
+
+- import_tasks: colorscript.yml
+  tags:
+    - zsh
+
+- name: Stow bin
+  shell: cd {{ lookup('ansible.builtin.env', 'HOME') }}/.dotfiles && stow bin
+  tags:
+    - zsh

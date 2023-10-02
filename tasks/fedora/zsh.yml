@@ -1,0 +1,21 @@
+- name: Installing zsh
+  dnf:
+    name: zsh
+  tags:
+    - zsh
+
+- name: Installing Linux user util
+  dnf:
+    name: util-linux-user
+  tags:
+    - zsh
+
+- import_tasks: ../universal/zsh.yml
+  tags:
+    - zsh
+
+- name: Installing zsh utils
+  dnf:
+    name: ["bat","ripgrep","lsd","fzf"]
+  tags:
+    - zsh
